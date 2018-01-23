@@ -29,22 +29,20 @@ class ViewController: UIViewController {
         inButton.rx.tap.scan(0) { (priorValue, _) in
                 return 1
             }
-            .asDriver(onErrorJustReturn: 0)
-            .drive(onNext: { [unowned self] currentCount in
+            .subscribe(onNext: { [unowned self] currentCount in
                 let count = Int(self.countLabel.text!)! + currentCount
                 //UI Changes
                 self.buttonLogic(count: count)
                 self.countLabel.text = String(count)
                 self.stateLabel.text = stateString[count]
-            })
+                })
             .disposed(by: disposeBag)
        
         //Out Button Logic
         outButton.rx.tap.scan(0) { (priorValue, _) in
                 return -1
             }
-            .asDriver(onErrorJustReturn: 0)
-            .drive(onNext: { [unowned self] currentCount in
+            .subscribe(onNext: { [unowned self] currentCount in
                 let count = Int(self.countLabel.text!)! + currentCount
                 //UI Changes
                 self.buttonLogic(count: count)
