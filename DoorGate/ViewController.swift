@@ -31,10 +31,7 @@ class ViewController: UIViewController {
             }
             .subscribe(onNext: { [unowned self] currentCount in
                 let count = Int(self.countLabel.text!)! + currentCount
-                //UI Changes
-                self.buttonLogic(count: count)
-                self.countLabel.text = String(count)
-                self.stateLabel.text = stateString[count]
+                self.logic(count: count)
                 })
             .disposed(by: disposeBag)
        
@@ -44,15 +41,15 @@ class ViewController: UIViewController {
             }
             .subscribe(onNext: { [unowned self] currentCount in
                 let count = Int(self.countLabel.text!)! + currentCount
-                //UI Changes
-                self.buttonLogic(count: count)
-                self.countLabel.text = String(count)
-                self.stateLabel.text = stateString[count]
+                self.logic(count: count)
             })
             .disposed(by: disposeBag)
     }
     
-    func buttonLogic(count :Int) {
+    func logic(count :Int) {
+        self.countLabel.text = String(count)
+        self.stateLabel.text = stateString[count]
+
         self.inButton.isEnabled = (count < 2)
         self.outButton.isEnabled = (count > 0)
     }
