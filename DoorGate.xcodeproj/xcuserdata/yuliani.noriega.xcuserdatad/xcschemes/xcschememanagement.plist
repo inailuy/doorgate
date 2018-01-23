@@ -7,7 +7,25 @@
 		<key>DoorGate.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>7</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>926D4D122012546200F3CB4C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>926D4D262012546200F3CB4C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>926D4D312012546200F3CB4C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
