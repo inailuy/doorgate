@@ -14,7 +14,7 @@ let stateString = ["Open", "Occupied", "Locked"]
 
 class ViewController: UIViewController {
     var presenter = DoorPresenter()
-    
+
     //Labels
     @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
