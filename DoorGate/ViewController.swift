@@ -13,6 +13,8 @@ import RxCocoa
 let stateString = ["Open", "Occupied", "Locked"]
 
 class ViewController: UIViewController {
+    var presenter = DoorPresenter()
+    
     //Labels
     @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
@@ -24,34 +26,33 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         //In Button Logic
-        inButton.rx.tap.scan(0) { (priorValue, _) in
-                return 1
-            }
-            .subscribe(onNext: { [unowned self] currentCount in
-                let count = Int(self.countLabel.text!)! + currentCount
-                self.logic(count: count)
+        inButton.rx.tap
+            .subscribe({ [unowned self] currentCount in
+                self.presenter.buttonTap(command: DoorCommand.goingIn)
+            })
+            .disposed(by: disposeBag)
+        //Out Button Logic
+        outButton.rx.tap
+            .subscribe({ [unowned self] currentCount in
+                self.presenter.buttonTap(command: DoorCommand.goingOut)
                 })
             .disposed(by: disposeBag)
-       
-        //Out Button Logic
-        outButton.rx.tap.scan(0) { (priorValue, _) in
-                return -1
-            }
-            .subscribe(onNext: { [unowned self] currentCount in
-                let count = Int(self.countLabel.text!)! + currentCount
-                self.logic(count: count)
+
+        presenter.doorEntity.state.asObservable()
+            .subscribe(onNext: { state in
+                //This feels wrong empasulating self without the [unowned self]
+                self.updateUI(count: state)
             })
             .disposed(by: disposeBag)
     }
-    
-    func logic(count :Int) {
+
+    func updateUI(count :Int) {
         self.countLabel.text = String(count)
         self.stateLabel.text = stateString[count]
-
+        
         self.inButton.isEnabled = (count < 2)
         self.outButton.isEnabled = (count > 0)
     }
 }
-
