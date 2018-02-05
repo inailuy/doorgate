@@ -11,6 +11,8 @@ import RxSwift
 import RxCocoa
 
 let stateString = ["Open", "Occupied", "Locked"]
+let THRESHOLD_TO_DISABLE_IN = 2
+let THRESHOLD_TO_DISABLE_OUT = 0
 
 class ViewController: UIViewController {
     var presenter = DoorPresenter()
@@ -42,7 +44,7 @@ class ViewController: UIViewController {
 
         presenter.doorEntity.state.asObservable()
             .subscribe(onNext: { state in
-                //This feels wrong empasulating self without the [unowned self]
+                //This feels wrong encapsulating self without the [unowned self]
                 self.updateUI(count: state)
             })
             .disposed(by: disposeBag)
@@ -52,7 +54,7 @@ class ViewController: UIViewController {
         self.countLabel.text = String(count)
         self.stateLabel.text = stateString[count]
         
-        self.inButton.isEnabled = (count < 2)
-        self.outButton.isEnabled = (count > 0)
+        self.inButton.isEnabled = (count < THRESHOLD_TO_DISABLE_IN)
+        self.outButton.isEnabled = (count > THRESHOLD_TO_DISABLE_OUT)
     }
 }
