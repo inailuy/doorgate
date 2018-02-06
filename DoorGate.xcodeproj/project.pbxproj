@@ -16,10 +16,7 @@
 		926D4D212012546200F3CB4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926D4D1F2012546200F3CB4C /* LaunchScreen.storyboard */; };
 		926D4D2C2012546200F3CB4C /* DoorGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926D4D2B2012546200F3CB4C /* DoorGateTests.swift */; };
 		926D4D372012546200F3CB4C /* DoorGateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926D4D362012546200F3CB4C /* DoorGateUITests.swift */; };
-		92FC9E91201B90BB00FAE803 /* DoorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC9E90201B90BB00FAE803 /* DoorState.swift */; };
-		92FC9E94201B90F900FAE803 /* DoorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC9E93201B90F900FAE803 /* DoorCommand.swift */; };
 		92FC9E96201B910200FAE803 /* DoorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC9E95201B910200FAE803 /* DoorPresenter.swift */; };
-		92FC9E9A201F798D00FAE803 /* DoorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC9E99201F798D00FAE803 /* DoorEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,10 +56,7 @@
 		926D4D322012546200F3CB4C /* DoorGateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoorGateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		926D4D362012546200F3CB4C /* DoorGateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorGateUITests.swift; sourceTree = "<group>"; };
 		926D4D382012546200F3CB4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		92FC9E90201B90BB00FAE803 /* DoorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorState.swift; sourceTree = "<group>"; };
-		92FC9E93201B90F900FAE803 /* DoorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoorCommand.swift; path = /Users/yuliani.noriega/Documents/DoorGate/DoorGate/DoorCommand.swift; sourceTree = "<absolute>"; };
 		92FC9E95201B910200FAE803 /* DoorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorPresenter.swift; sourceTree = "<group>"; };
-		92FC9E99201F798D00FAE803 /* DoorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorEntity.swift; sourceTree = "<group>"; };
 		D0C41039D6634D03BB252DAE /* Pods-DoorGateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoorGateTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DoorGateTests/Pods-DoorGateTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,9 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				926D4D162012546200F3CB4C /* AppDelegate.swift */,
-				92FC9E93201B90F900FAE803 /* DoorCommand.swift */,
-				92FC9E90201B90BB00FAE803 /* DoorState.swift */,
-				92FC9E99201F798D00FAE803 /* DoorEntity.swift */,
 				92FC9E95201B910200FAE803 /* DoorPresenter.swift */,
 				926D4D182012546200F3CB4C /* ViewController.swift */,
 				926D4D1A2012546200F3CB4C /* Main.storyboard */,
@@ -425,9 +416,6 @@
 				92FC9E96201B910200FAE803 /* DoorPresenter.swift in Sources */,
 				926D4D192012546200F3CB4C /* ViewController.swift in Sources */,
 				926D4D172012546200F3CB4C /* AppDelegate.swift in Sources */,
-				92FC9E91201B90BB00FAE803 /* DoorState.swift in Sources */,
-				92FC9E94201B90F900FAE803 /* DoorCommand.swift in Sources */,
-				92FC9E9A201F798D00FAE803 /* DoorEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
