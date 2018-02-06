@@ -12,9 +12,6 @@ import RxCocoa
 
 let stateString = ["Open", "Occupied", "Locked"]
 
-let THRESHOLD_TO_DISABLE_IN = 2
-let THRESHOLD_TO_DISABLE_OUT = 0
-
 // Command
 enum DoorCommand {
     case goingIn
@@ -45,23 +42,25 @@ class ViewController: UIViewController {
                 return DoorCommand.goingOut
         }
         // Buttons Merged and Subscribe
-        Observable.merge(inObserveable, outObserveable).subscribe({ [unowned self] eventCommand in
+        Observable.merge(inObserveable, outObserveable).subscribe({ eventCommand in
             self.events.onNext(eventCommand.element!)
         }).disposed(by: disposeBag)
 
         // UI is updated after logic is adjusted in presenter
-        presenter.state.asObservable()
-            .subscribe({ [unowned self] state in
-                return self.updateUI(count: state.element!.rawValue)
+        presenter.entity.asObservable()
+            .subscribe({ [unowned self] entity in
+                self.updateUI(event: entity)
             })
             .disposed(by: disposeBag)
     }
 
-    func updateUI(count :Int) {
-        self.countLabel.text = String(count)
-        self.stateLabel.text = stateString[count]
+    func updateUI(event:Event<DoorEntity>) {
+        let entity = event.element!
+        
+        self.countLabel.text = String(entity.state.rawValue)
+        self.stateLabel.text = stateString[entity.state.rawValue]
 
-        self.inButton.isEnabled = (count < THRESHOLD_TO_DISABLE_IN)
-        self.outButton.isEnabled = (count > THRESHOLD_TO_DISABLE_OUT)
+        self.inButton.isEnabled = entity.inEnable
+        self.outButton.isEnabled = entity.outEnable
     }
 }
