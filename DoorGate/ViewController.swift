@@ -22,23 +22,18 @@ enum DoorCommand {
 }
 
 class ViewController: UIViewController {
-    var presenter = DoorPresenter()
-
-    // Labels
+    // iVars
     @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
-    // Buttons
     @IBOutlet weak var inButton: UIButton!
     @IBOutlet weak var outButton: UIButton!
-    // Dispose Bag
+    // Publish Subject & Dispose Bag
+    var events = PublishSubject<DoorCommand>()
     private let disposeBag = DisposeBag()
-    
-    // Publish Subject
-    var publishSubject = PublishSubject<DoorCommand>()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.passInViewContoller(vc: self)
+        let presenter = DoorPresenter(commands: events)
 
         // Buttons Map In/Out
         let inObserveable = inButton.rx.tap
@@ -50,14 +45,14 @@ class ViewController: UIViewController {
                 return DoorCommand.goingOut
         }
         // Buttons Merged and Subscribe
-        Observable.merge(inObserveable, outObserveable).subscribe({ eventCommand in
-            self.publishSubject.onNext(eventCommand.element!)
+        Observable.merge(inObserveable, outObserveable).subscribe({ [unowned self] eventCommand in
+            self.events.onNext(eventCommand.element!)
         }).disposed(by: disposeBag)
-        
+
         // UI is updated after logic is adjusted in presenter
         presenter.state.asObservable()
-            .subscribe(onNext: { [unowned self] state in
-                self.updateUI(count: state)
+            .subscribe({ [unowned self] state in
+                return self.updateUI(count: state.element!.rawValue)
             })
             .disposed(by: disposeBag)
     }
@@ -65,7 +60,7 @@ class ViewController: UIViewController {
     func updateUI(count :Int) {
         self.countLabel.text = String(count)
         self.stateLabel.text = stateString[count]
-        
+
         self.inButton.isEnabled = (count < THRESHOLD_TO_DISABLE_IN)
         self.outButton.isEnabled = (count > THRESHOLD_TO_DISABLE_OUT)
     }
