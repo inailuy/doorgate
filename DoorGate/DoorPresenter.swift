@@ -14,12 +14,12 @@ let THRESHOLD_TO_DISABLE_IN = 2
 let THRESHOLD_TO_DISABLE_OUT = 0
 
 struct DoorEntity {
-    var state :DoorState
+    var count :DoorState
     var inEnable :Bool
     var outEnable :Bool
     
-    func empty() -> DoorEntity {
-        return DoorEntity(state: .empty, inEnable: false, outEnable: false)
+    static func empty() -> DoorEntity {
+        return DoorEntity(count: .empty, inEnable: false, outEnable: false)
     }
 }
 
@@ -29,30 +29,30 @@ class DoorPresenter {
 
     init(commands:PublishSubject<DoorCommand>) {
         commands
-            .scan(DoorEntity.empty, accumulator: DoorPresenter.accumulator)
+            .scan(DoorEntity.empty(), accumulator: DoorPresenter.accumulator)
             .subscribe({ result in
-                self.entity.onNext(result)
+                self.entity.onNext(result.element!)
         }).disposed(by: disposeBag)
     }
 
     static func accumulator(previousEntity: DoorEntity,
                                     command: DoorCommand) -> DoorEntity {
-        let previousState = previousEntity.state.rawValue
-        var newState :DoorState
+        let previousCount = previousEntity.count.rawValue
+        var newCount :DoorState
 
-        if command == .goingIn && previousState < DoorState.locked.rawValue {
-            newState = DoorState(rawValue: previousState + 1)!
-        } else if command == .goingOut && previousState > DoorState.empty.rawValue {
-            newState = DoorState(rawValue: previousState - 1)!
+        if command == .goingIn && previousCount < DoorState.locked.rawValue {
+            newCount = DoorState(rawValue: previousCount + 1)!
+        } else if command == .goingOut && previousCount > DoorState.empty.rawValue {
+            newCount = DoorState(rawValue: previousCount - 1)!
         } else {
             print("Error on buttonTap: \(command)")
             // something went wrong revert to empty state (should never be hit)
-            newState = DoorState(rawValue: DoorState.empty.rawValue)!
+            newCount = DoorState(rawValue: DoorState.empty.rawValue)!
         }
         
-        let inBool = newState.rawValue < THRESHOLD_TO_DISABLE_IN
-        let outBool = newState.rawValue > THRESHOLD_TO_DISABLE_OUT
+        let inBool = newCount.rawValue < THRESHOLD_TO_DISABLE_IN
+        let outBool = newCount.rawValue > THRESHOLD_TO_DISABLE_OUT
         
-        return DoorEntity(state: newState, inEnable: inBool, outEnable: outBool)
+        return DoorEntity(count: newCount, inEnable: inBool, outEnable: outBool)
     }
 }

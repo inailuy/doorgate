@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-let stateString = ["Open", "Occupied", "Locked"]
+let countString = ["Open", "Occupied", "Locked"]
 
 // Command
 enum DoorCommand {
@@ -57,8 +57,8 @@ class ViewController: UIViewController {
     func updateUI(event:Event<DoorEntity>) {
         let entity = event.element!
         
-        self.countLabel.text = String(entity.state.rawValue)
-        self.stateLabel.text = stateString[entity.state.rawValue]
+        self.countLabel.text = String(entity.count.rawValue)
+        self.stateLabel.text = countString[entity.count.rawValue]
 
         self.inButton.isEnabled = entity.inEnable
         self.outButton.isEnabled = entity.outEnable
