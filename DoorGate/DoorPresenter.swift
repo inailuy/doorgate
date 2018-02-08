@@ -12,6 +12,7 @@ enum DoorState :Int {
 
 let THRESHOLD_TO_DISABLE_IN = 2
 let THRESHOLD_TO_DISABLE_OUT = 0
+let PRESSURE_IDENTIFIER = "Dynamic"
 
 struct DoorEntity {
     var count :DoorState
