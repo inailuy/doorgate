@@ -6,53 +6,59 @@
 //
 import RxSwift
 
-enum DoorState :Int {
-    case empty = 0, occupied, locked
+enum DoorState {
+    case empty, occupied, locked
 }
 
-let THRESHOLD_TO_DISABLE_IN = 2
-let THRESHOLD_TO_DISABLE_OUT = 0
-let PRESSURE_IDENTIFIER = "Dynamic"
+let DYNAMIC_IDENTIFIER = "Dynamic"
 
 struct DoorEntity {
     var count :DoorState
     var inEnable :Bool
     var outEnable :Bool
     
-    static func empty() -> DoorEntity {
+    static var empty:DoorEntity {
         return DoorEntity(count: .empty, inEnable: false, outEnable: false)
     }
 }
 
 class DoorPresenter {
-    var entity = PublishSubject<DoorEntity>()
+    private var entitySubject = PublishSubject<DoorEntity>()
+    var entity: Observable<DoorEntity> {
+        return entitySubject.asObservable()
+    }
+    
     private let disposeBag = DisposeBag()
 
     init(commands:PublishSubject<DoorCommand>) {
         commands
-            .scan(DoorEntity.empty(), accumulator: DoorPresenter.accumulator)
+            .scan(DoorEntity.empty, accumulator: DoorPresenter.accumulator)
             .subscribe({ result in
-                self.entity.onNext(result.element!)
+                guard let element = result.element else {
+                    return print("error on DoorPresenter init commands subcribe")
+                }
+                
+                self.entitySubject.onNext(element)
         }).disposed(by: disposeBag)
     }
 
     static func accumulator(previousEntity: DoorEntity,
                                     command: DoorCommand) -> DoorEntity {
-        let previousCount = previousEntity.count.rawValue
+        let previousCount = previousEntity.count
         var newCount :DoorState
 
-        if command == .goingIn && previousCount < DoorState.locked.rawValue {
-            newCount = DoorState(rawValue: previousCount + 1)!
-        } else if command == .goingOut && previousCount > DoorState.empty.rawValue {
-            newCount = DoorState(rawValue: previousCount - 1)!
+        if command == .goingIn && previousCount != DoorState.locked {
+            newCount = (previousCount == .empty) ? .occupied : .locked
+        } else if command == .goingOut && previousCount != DoorState.empty {
+            newCount = (previousCount == .locked) ? .occupied : .empty
         } else {
             print("Error on buttonTap: \(command)")
             // something went wrong revert to empty state (should never be hit)
-            newCount = DoorState(rawValue: DoorState.empty.rawValue)!
+            newCount = DoorState.empty
         }
-        
-        let inBool = newCount.rawValue < THRESHOLD_TO_DISABLE_IN
-        let outBool = newCount.rawValue > THRESHOLD_TO_DISABLE_OUT
+
+        let inBool = (newCount == DoorState.locked) ? false : true
+        let outBool = (newCount == DoorState.empty) ? false : true
         
         return DoorEntity(count: newCount, inEnable: inBool, outEnable: outBool)
     }
