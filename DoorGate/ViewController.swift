@@ -43,7 +43,11 @@ class ViewController: UIViewController {
         }
         // Buttons Merged and Subscribe
         Observable.merge(inObserveable, outObserveable).subscribe({ eventCommand in
-            self.events.onNext(eventCommand.element!)
+            guard let element = eventCommand.element else {
+                return print("error on eventCommand") 
+            }
+            
+            self.events.onNext(element)
         }).disposed(by: disposeBag)
 
         // UI is updated after logic is adjusted in presenter
@@ -55,10 +59,16 @@ class ViewController: UIViewController {
     }
 
     func updateUI(event:Event<DoorEntity>) {
-        let entity = event.element!
+        guard let entity = event.element else {
+            return print("error on event")
+        }
+        var count = 0
+        if entity.count != .empty {
+            count = (entity.count == .occupied) ? 1 : 2
+        }
         
-        self.countLabel.text = String(entity.count.rawValue)
-        self.stateLabel.text = countString[entity.count.rawValue]
+        self.countLabel.text = String(count)
+        self.stateLabel.text = countString[count]
 
         self.inButton.isEnabled = entity.inEnable
         self.outButton.isEnabled = entity.outEnable
