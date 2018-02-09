@@ -11,6 +11,9 @@ import RxSwift
 import RxCocoa
 
 let countString = ["Open", "Occupied", "Locked"]
+let EMPTY = 0
+let OCCUPIED = 1
+let LOCKED = 2
 
 // Command
 enum DoorCommand {
@@ -27,12 +30,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIButton!
     
     // Publish Subject & Dispose Bag
-    var events = PublishSubject<DoorCommand>()
+    var doorCommandPublishSubject = PublishSubject<DoorCommand>()
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let presenter = DoorPresenter(commands: events)
+        let presenter = DoorPresenter(commands: doorCommandPublishSubject)
 
         // Buttons Map In/Out
         deleteButton.rx.tap
@@ -51,29 +54,22 @@ class ViewController: UIViewController {
                 return DoorCommand.goingOut
         }
         // Buttons Merged and Subscribe
-        Observable.merge(inObserveable, outObserveable).subscribe({ eventCommand in
-            guard let element = eventCommand.element else {
-                return print("error on eventCommand") 
-            }
-            
-            self.events.onNext(element)
+        Observable.merge(inObserveable, outObserveable).subscribe(onNext: { doorCommand in
+            self.doorCommandPublishSubject.onNext(doorCommand)
         }).disposed(by: disposeBag)
 
         // UI is updated after logic is adjusted in presenter
         presenter.entity.asObservable()
-            .subscribe({ [unowned self] entity in
-                self.updateUI(event: entity)
+            .subscribe(onNext: { entity in
+                self.updateUI(entity: entity)
             })
             .disposed(by: disposeBag)
     }
 
-    func updateUI(event:Event<DoorEntity>) {
-        guard let entity = event.element else {
-            return print("error on event")
-        }
-        var count = 0
+    func updateUI(entity:DoorEntity) {
+        var count = EMPTY
         if entity.count != .empty {
-            count = (entity.count == .occupied) ? 1 : 2
+            count = (entity.count == .occupied) ? OCCUPIED : LOCKED
         }
         
         self.countLabel.text = String(count)
