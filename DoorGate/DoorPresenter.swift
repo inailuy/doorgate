@@ -21,23 +21,19 @@ struct DoorEntity {
 }
 
 class DoorPresenter {
-    private var entitySubject = PublishSubject<DoorEntity>()
-    var entity: Observable<DoorEntity> {
-        return entitySubject.asObservable()
-    }
-    
     private let disposeBag = DisposeBag()
+    private var doorEntityPublishSubject = PublishSubject<DoorEntity>()
+    var entity: Observable<DoorEntity> {
+        return doorEntityPublishSubject.asObservable()
+    }
 
     init(commands:PublishSubject<DoorCommand>) {
         commands
             .scan(DoorEntity.empty, accumulator: DoorPresenter.accumulator)
-            .subscribe({ result in
-                guard let element = result.element else {
-                    return print("error on DoorPresenter init commands subcribe")
-                }
-                
-                self.entitySubject.onNext(element)
-        }).disposed(by: disposeBag)
+            .subscribe(onNext: { doorEntity in
+                self.doorEntityPublishSubject.onNext(doorEntity)
+            })
+            .disposed(by: disposeBag)
     }
 
     static func accumulator(previousEntity: DoorEntity,
