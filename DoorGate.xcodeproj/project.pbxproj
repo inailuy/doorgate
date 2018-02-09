@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F34AE9D353F646F81963B5A /* Pods_DoorGateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C309E9ADD0FBA2A86CE457E /* Pods_DoorGateTests.framework */; };
 		8E2AFD825D657AD0905E2FE9 /* Pods_DoorGate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D3201FE43999AB240013B3 /* Pods_DoorGate.framework */; };
+		9221AC6B202DF57800218DFC /* AppShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9221AC6A202DF57700218DFC /* AppShortcut.swift */; };
 		926D4D172012546200F3CB4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926D4D162012546200F3CB4C /* AppDelegate.swift */; };
 		926D4D192012546200F3CB4C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926D4D182012546200F3CB4C /* ViewController.swift */; };
 		926D4D1C2012546200F3CB4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926D4D1A2012546200F3CB4C /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 		6BA3CD48F6EED40D49D48B5C /* Pods_DoorGateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DoorGateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C309E9ADD0FBA2A86CE457E /* Pods_DoorGateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DoorGateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		856FD84D4DEF52C61C5348AF /* Pods-DoorGate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoorGate.release.xcconfig"; path = "Pods/Target Support Files/Pods-DoorGate/Pods-DoorGate.release.xcconfig"; sourceTree = "<group>"; };
+		9221AC6A202DF57700218DFC /* AppShortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppShortcut.swift; sourceTree = "<group>"; };
 		926D4D132012546200F3CB4C /* DoorGate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoorGate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		926D4D162012546200F3CB4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		926D4D182012546200F3CB4C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				926D4D162012546200F3CB4C /* AppDelegate.swift */,
+				9221AC6A202DF57700218DFC /* AppShortcut.swift */,
 				92FC9E95201B910200FAE803 /* DoorPresenter.swift */,
 				926D4D182012546200F3CB4C /* ViewController.swift */,
 				926D4D1A2012546200F3CB4C /* Main.storyboard */,
@@ -414,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92FC9E96201B910200FAE803 /* DoorPresenter.swift in Sources */,
+				9221AC6B202DF57800218DFC /* AppShortcut.swift in Sources */,
 				926D4D192012546200F3CB4C /* ViewController.swift in Sources */,
 				926D4D172012546200F3CB4C /* AppDelegate.swift in Sources */,
 			);
