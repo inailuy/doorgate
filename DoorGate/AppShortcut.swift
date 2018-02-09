@@ -7,6 +7,7 @@
 //
 import UIKit
 
+let DYNAMIC_IDENTIFIER = "Dynamic"
 enum ShortcutType: String {
     case staticType = "Static"
     case dynamicType = "Dynamic"
