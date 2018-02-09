@@ -37,14 +37,8 @@ class ViewController: UIViewController {
         // Buttons Map In/Out
         deleteButton.rx.tap
             .subscribe(onNext: { _ in
-                if #available(iOS 9.0, *) {
-                    if let shortcutItem = UIApplication.shared.shortcutItems?.filter({ $0.type == DYNAMIC_IDENTIFIER }).first {
-                        let index = UIApplication.shared.shortcutItems?.index(of: shortcutItem)
-                        UIApplication.shared.shortcutItems?.remove(at: index!)
-                        
-                        print("deleted dynamic quick action")
-                    }
-                }  
+               //AppShortcut.deleteShortcut(identifier: DYNAMIC_IDENTIFIER)
+                AppShortcut.deleteAllShortcut()
             }).disposed(by: disposeBag)
 
         
@@ -88,16 +82,6 @@ class ViewController: UIViewController {
         self.inButton.isEnabled = entity.inEnable
         self.outButton.isEnabled = entity.outEnable
         
-        if #available(iOS 9.0, *) {
-            if let shortcutItem = UIApplication.shared.shortcutItems?.filter({ $0.type == DYNAMIC_IDENTIFIER }).first {
-                let index = UIApplication.shared.shortcutItems?.index(of: shortcutItem)
-                UIApplication.shared.shortcutItems?.remove(at: index!)
-                
-            }
-            
-            let item = UIMutableApplicationShortcutItem(type: DYNAMIC_IDENTIFIER, localizedTitle: "Dynamic Action")
-            item.localizedSubtitle = countString[count]
-            UIApplication.shared.shortcutItems?.append(item)
-        }
+        AppShortcut.addShortcut(identifier: DYNAMIC_IDENTIFIER, substring: countString[count])
     }
 }
