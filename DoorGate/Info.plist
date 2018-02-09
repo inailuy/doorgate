@@ -41,5 +41,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Static Action</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string>Static</string>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>icon</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).Static</string>
+		</dict>
+	</array>
 </dict>
 </plist>

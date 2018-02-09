@@ -10,6 +10,8 @@ enum DoorState {
     case empty, occupied, locked
 }
 
+let DYNAMIC_IDENTIFIER = "Dynamic"
+
 struct DoorEntity {
     var count :DoorState
     var inEnable :Bool

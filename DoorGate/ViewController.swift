@@ -27,6 +27,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var inButton: UIButton!
     @IBOutlet weak var outButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
+    
     // Publish Subject & Dispose Bag
     var doorCommandPublishSubject = PublishSubject<DoorCommand>()
     private let disposeBag = DisposeBag()
@@ -36,6 +38,19 @@ class ViewController: UIViewController {
         let presenter = DoorPresenter(commands: doorCommandPublishSubject)
 
         // Buttons Map In/Out
+        deleteButton.rx.tap
+            .subscribe(onNext: { _ in
+                if #available(iOS 9.0, *) {
+                    if let shortcutItem = UIApplication.shared.shortcutItems?.filter({ $0.type == DYNAMIC_IDENTIFIER }).first {
+                        let index = UIApplication.shared.shortcutItems?.index(of: shortcutItem)
+                        UIApplication.shared.shortcutItems?.remove(at: index!)
+                        
+                        print("deleted dynamic quick action")
+                    }
+                }  
+            }).disposed(by: disposeBag)
+
+        
         let inObserveable = inButton.rx.tap
             .map{ _ in
                 return DoorCommand.goingIn
@@ -68,5 +83,17 @@ class ViewController: UIViewController {
 
         self.inButton.isEnabled = entity.inEnable
         self.outButton.isEnabled = entity.outEnable
+        
+        if #available(iOS 9.0, *) {
+            if let shortcutItem = UIApplication.shared.shortcutItems?.filter({ $0.type == DYNAMIC_IDENTIFIER }).first {
+                let index = UIApplication.shared.shortcutItems?.index(of: shortcutItem)
+                UIApplication.shared.shortcutItems?.remove(at: index!)
+                
+            }
+            
+            let item = UIMutableApplicationShortcutItem(type: DYNAMIC_IDENTIFIER, localizedTitle: "Dynamic Action")
+            item.localizedSubtitle = countString[count]
+            UIApplication.shared.shortcutItems?.append(item)
+        }
     }
 }
