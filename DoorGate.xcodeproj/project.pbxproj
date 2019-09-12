@@ -16,6 +16,7 @@
 		926D4D212012546200F3CB4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926D4D1F2012546200F3CB4C /* LaunchScreen.storyboard */; };
 		926D4D2C2012546200F3CB4C /* DoorGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926D4D2B2012546200F3CB4C /* DoorGateTests.swift */; };
 		926D4D372012546200F3CB4C /* DoorGateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926D4D362012546200F3CB4C /* DoorGateUITests.swift */; };
+		92FC9E96201B910200FAE803 /* DoorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC9E95201B910200FAE803 /* DoorPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		926D4D322012546200F3CB4C /* DoorGateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoorGateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		926D4D362012546200F3CB4C /* DoorGateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorGateUITests.swift; sourceTree = "<group>"; };
 		926D4D382012546200F3CB4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92FC9E95201B910200FAE803 /* DoorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorPresenter.swift; sourceTree = "<group>"; };
 		D0C41039D6634D03BB252DAE /* Pods-DoorGateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoorGateTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DoorGateTests/Pods-DoorGateTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				926D4D162012546200F3CB4C /* AppDelegate.swift */,
+				92FC9E95201B910200FAE803 /* DoorPresenter.swift */,
 				926D4D182012546200F3CB4C /* ViewController.swift */,
 				926D4D1A2012546200F3CB4C /* Main.storyboard */,
 				926D4D1D2012546200F3CB4C /* Assets.xcassets */,
@@ -410,6 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92FC9E96201B910200FAE803 /* DoorPresenter.swift in Sources */,
 				926D4D192012546200F3CB4C /* ViewController.swift in Sources */,
 				926D4D172012546200F3CB4C /* AppDelegate.swift in Sources */,
 			);
@@ -580,6 +584,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TY32L33E82;
 				INFOPLIST_FILE = DoorGate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snagajob.DoorGate;
@@ -596,6 +601,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TY32L33E82;
 				INFOPLIST_FILE = DoorGate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snagajob.DoorGate;
